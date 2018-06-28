@@ -1,8 +1,8 @@
 # bitcoin-testnet-box docker image
 
-# Ubuntu 14.04 LTS (Trusty Tahr)
-FROM ubuntu:14.04
-MAINTAINER Sean Lavine <lavis88@gmail.com>
+# Ubuntu 16.04 LTS (Xenial Xerus)
+FROM ubuntu:16.04
+MAINTAINER S Kwok <stckwok@hotmail.com>
 
 # add bitcoind from the official PPA
 RUN apt-get update
@@ -14,22 +14,22 @@ RUN apt-get update
 RUN apt-get install --yes bitcoind make
 
 # create a non-root user
-RUN adduser --disabled-login --gecos "" tester
+RUN adduser --disabled-login --gecos "" bchtester
 
 # run following commands from user's home directory
-WORKDIR /home/tester
+WORKDIR /home/bchtester
 
 # copy the testnet-box files into the image
-ADD . /home/tester/bitcoin-testnet-box
+ADD . /home/bchtester/bitcoin-testnet-box
 
-# make tester user own the bitcoin-testnet-box
-RUN chown -R tester:tester /home/tester/bitcoin-testnet-box
+# make bchtester user own the bitcoin-testnet-box
+RUN chown -R bchtester:bchtester /home/bchtester/bitcoin-testnet-box
 
-# use the tester user when running the image
-USER tester
+# use the bchtester user when running the image
+USER bchtester
 
 # run commands from inside the testnet-box directory
-WORKDIR /home/tester/bitcoin-testnet-box
+WORKDIR /home/bchtester/bitcoin-testnet-box
 
 # expose two rpc ports for the nodes to allow outside container access
 EXPOSE 19001 19011
